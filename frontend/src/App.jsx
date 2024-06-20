@@ -6,6 +6,7 @@ function App() {
   const [file, setFile] = useState(null);
   const [result, setResult] = useState({type: null, brand:null});
   const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState(null)
  
   const renderResult = (items) => {
 
@@ -36,6 +37,8 @@ function App() {
   } 
 
   const handleFileChange = (event) => {
+    // console.log(event.target.value)
+    setImage(event.target.value);
     setFile(event.target.files[0]);
   };
 
@@ -79,15 +82,22 @@ function App() {
           <button type="submit">Upload</button>
         </form>
         {loading && <p>Loading...</p>}
+        
+
         {(result.type && result.brand) && (
           <div className="result">
             <h2>Recognition Result</h2>
               <ul>
-              <li>Car Brand: {result.brand}</li>
-                <li>Car type: {result.type}</li>
+              <li>Car Brand: <h1>{result.brand}</h1></li>
+                <li>Car type: <h1>{result.type}</h1></li>
               </ul>  
           </div>
-        )}   
+        )}  
+        {image && (
+          <div className="image">
+            <img src={URL.createObjectURL(file)} alt="Uploaded Image" />
+          </div>
+        )} 
       </header>
     </div>
   );
